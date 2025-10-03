@@ -11,7 +11,7 @@ def test_get_exchange_rate_USD(convertor):
     actual = convertor.get_exchange_rate("USD")
 
     # assert
-    expected = 100
+    expected = 120368.5
     assert actual == expected
 
 def test_get_exchange_rate_GBP(convertor):
@@ -35,7 +35,7 @@ def test_convert_bitcoin_to_USD(convertor):
     actual = convertor.convert_bitcoin("USD", 1)
 
     # assert
-    expected = 100
+    expected = 120368.5
     assert actual == expected
 
 def test_convert_two_bitcoin_to_USD(convertor):

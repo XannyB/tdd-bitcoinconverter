@@ -1,3 +1,9 @@
+from urllib.request import urlopen
+import json
+
+coinbase_rates_file = json.load(urlopen("https://api.coinbase.com/v2/exchange-rates?currency=BTC"))
+currents_rates = coinbase_rates_file["data"]["rates"]
+
 class Convertor():
     def get_exchange_rate(self, currency):
         if currency == "USD":
@@ -7,11 +13,11 @@ class Convertor():
         if currency == "EUR":
             return 300
     
-    def convert_bitcoin(self, currency, coins):
-        num_currency = 0;
+    def convert_bitcoin(self, currency_type, coins):
+        currency_total = 0;
 
-        exchange_rate = self.get_exchange_rate(currency)
+        exchange_rate = currents_rates.get(currency_type)
 
-        num_currency = exchange_rate * coins
+        currency_total = exchange_rate * coins
 
-        return num_currency
+        return currency_total
