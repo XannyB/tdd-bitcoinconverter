@@ -16,9 +16,6 @@ class Convertor:
         currency_total = 0
         exchange_rate = self.get_exchange_rate(currency_type)
         currency_total = float(exchange_rate) * coins
-        print(currency_total)
-        return currency_total
+        return str(currency_total)
     
 convertor = Convertor()
-convertor.convert_bitcoin("USD", 1)
-convertor.convert_bitcoin("USD", 2)
