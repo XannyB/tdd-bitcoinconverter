@@ -36,14 +36,14 @@ def test_get_exchange_rate_EUR(mocker):
     #assert
     assert actual == mock_value
 
-def test_get_exchange_IO_Error(mocker):
+def test_get_exchange_OSError(mocker):
     #arrange
     mocker.patch.object(Convertor,"_fetch_rates", side_effect=OSError("Simulation: Site doesn't exist!"))
     
     try:
         convertor = Convertor()
         # act
-        actual = convertor.convert_bitcoin("USD", 1) 
+        actual = convertor.get_exchange_rate("USD") 
     except OSError:
         actual = "-1"
 
