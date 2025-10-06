@@ -1,6 +1,5 @@
-import pytest
 from src.main.Convertor import Convertor
-from urllib.error import HTTPError
+from urllib.error import URLError
 
 
 def test_get_exchange_rate_USD(mocker):
@@ -35,6 +34,17 @@ def test_get_exchange_rate_EUR(mocker):
     actual = convertor.get_exchange_rate("EUR")    
     #assert
     assert actual == mock_value
+
+def test_get_rates_URLError(mocker):
+    #arrange
+    mocker.patch("src.main.Convertor.urlopen", side_effect=URLError("URL Not Found!"))
+
+    convertor = Convertor()
+    expected = -1
+
+    actual = convertor.current_rates 
+
+    assert actual == expected
 
 def test_get_exchange_OSError(mocker):
     #arrange
