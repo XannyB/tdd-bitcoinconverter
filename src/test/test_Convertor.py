@@ -10,7 +10,7 @@ def test_get_exchange_rate_USD(mocker):
     convertor = Convertor()
     expected = float(mock_value)
     # act
-    actual = convertor.get_exchange_rate("USD")    
+    actual = convertor.get_exchange_rate(convertor.Currency.USD.value)    
     #assert
     assert actual == expected
 
@@ -22,7 +22,7 @@ def test_get_exchange_rate_GBP(mocker):
     convertor = Convertor()
     expected = float(mock_value)
     # act
-    actual = convertor.get_exchange_rate("GBP")    
+    actual = convertor.get_exchange_rate(convertor.Currency.GBP.value)    
     #assert
     assert actual == expected
 
@@ -34,7 +34,7 @@ def test_get_exchange_rate_EUR(mocker):
     convertor = Convertor()
     expected = float(mock_value)
     # act
-    actual = convertor.get_exchange_rate("EUR")    
+    actual = convertor.get_exchange_rate(convertor.Currency.EUR.value)    
     #assert
     assert actual == expected
 
@@ -65,7 +65,7 @@ def test_get_exchange_OSError(mocker):
     try:
         convertor = Convertor()
         # act
-        actual = convertor.get_exchange_rate("USD") 
+        actual = convertor.get_exchange_rate(convertor.Currency.USD.value) 
     except OSError:
         actual = -1
 
@@ -80,7 +80,7 @@ def test_convert_bitcoin_to_USD(mocker):
     mocker.patch.object(Convertor,"_fetch_rates", return_value=mock_data)
     convertor = Convertor()
     # act
-    actual = convertor.convert_bitcoin("USD", 1) 
+    actual = convertor.convert_bitcoin(convertor.Currency.USD.value, 1) 
     expected = float(mock_value)
     #assert
     assert actual == expected
@@ -91,7 +91,7 @@ def test_convert_two_bitcoin_to_USD(mocker):
     mocker.patch.object(Convertor,"_fetch_rates", return_value=mock_data)
     convertor = Convertor()
 
-    actual = convertor.convert_bitcoin("USD", 2)    
+    actual = convertor.convert_bitcoin(convertor.Currency.USD.value, 2)    
     expected = float(mock_value) * 2
 
     assert actual == expected
@@ -103,7 +103,7 @@ def test_convert_bitcoin_to_GBP(mocker):
     convertor = Convertor()    
     expected = float(mock_value)
 
-    actual = convertor.convert_bitcoin("GBP", 1)
+    actual = convertor.convert_bitcoin(convertor.Currency.GBP.value, 1)
     
     assert actual == expected
 
@@ -114,7 +114,7 @@ def test_convert_two_bitcoin_to_GBP(mocker):
     convertor = Convertor()    
     expected = float(mock_value) * 2
 
-    actual = convertor.convert_bitcoin("GBP", 2)
+    actual = convertor.convert_bitcoin(convertor.Currency.GBP.value, 2)
     
     assert actual == expected
 
@@ -125,7 +125,7 @@ def test_convert_bitcoin_to_EUR(mocker):
     convertor = Convertor()    
     expected = float(mock_value)
 
-    actual = convertor.convert_bitcoin("EUR", 1)
+    actual = convertor.convert_bitcoin(convertor.Currency.EUR.value, 1)
     
     assert actual == expected
 
@@ -136,7 +136,7 @@ def test_convert_two_bitcoin_to_EUR(mocker):
     convertor = Convertor()    
     expected = float(mock_value) * 2
 
-    actual = convertor.convert_bitcoin("EUR", 2)
+    actual = convertor.convert_bitcoin(convertor.Currency.EUR.value, 2)
     
     assert actual == expected
 
@@ -147,7 +147,7 @@ def test_convert_0_bitcoin_to_USD(mocker):
     convertor = Convertor()    
     expected = float(mock_value)
 
-    actual = convertor.convert_bitcoin("USD", 0)
+    actual = convertor.convert_bitcoin(convertor.Currency.USD.value, 0)
     
     assert actual == expected
 
@@ -157,7 +157,7 @@ def test_convert_negative_bitcoin_to_USD(mocker):
     convertor = Convertor()
     expected = -1
 
-    actual = convertor.convert_bitcoin("USD", -1)    
+    actual = convertor.convert_bitcoin(convertor.Currency.USD.value, -1)    
     
     assert actual == expected
 

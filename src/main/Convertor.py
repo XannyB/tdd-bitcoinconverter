@@ -1,5 +1,6 @@
 from urllib.request import urlopen
 from urllib.error import HTTPError, URLError
+from enum import Enum
 
 import json
 
@@ -13,6 +14,11 @@ class Convertor:
             return json.load(url)["data"]["rates"]
         except:
             return -1
+        
+    class Currency(Enum):
+        USD = "USD"
+        GBP = "GBP"
+        EUR = "EUR"
 
     def get_exchange_rate(self, currency):
         if self.current_rates != -1:
@@ -32,4 +38,3 @@ class Convertor:
             currency_total = -1
 
         return currency_total
-    
