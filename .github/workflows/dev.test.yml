@@ -1,4 +1,4 @@
-name: Run Pytest on Push
+name: Run Pytest with Coverage and Coveralls
 
 on: [push]
 
@@ -8,10 +8,11 @@ jobs:
 
     strategy:
       matrix:
-        python-version: [3.11.9]  # or whatever version you're using
+        python-version: [3.11.9]
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -21,27 +22,15 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-          pip install pytest
+          pip install pytest pytest-cov coveralls
 
-      - name: Run tests
-        run: pytest
+      # - name: Set PYTHONPATH
+      #   run: echo "PYTHONPATH=$PWD/src" >> $GITHUB_ENV
 
       - name: Run tests with coverage
-        run: pytest --cov=src --cov-report=term-missing --import-mode=importlib
-
-      - name: Upload coverage report
-        run: |
-          mkdir -p coverage
-          pytest --cov=src --cov-report=xml:coverage/coverage.xml
-        continue-on-error: true
-
-      - name: Publish coverage summary
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage-report
-          path: coverage/coverage.xml
+        run: pytest --cov=src --cov-report=xml --cov-report=term-missing --import-mode=importlib
 
       - name: Send coverage to Coveralls
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
-        run: coveralls --xml coverage.xml
+        run: coveralls
