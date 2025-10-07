@@ -1,0 +1,47 @@
+name: Run Pytest on Push
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-version: [3.11.9]  # or whatever version you're using
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install pytest
+
+      - name: Run tests
+        run: pytest
+
+      - name: Run tests with coverage
+        run: pytest --cov=src --cov-report=term-missing --import-mode=importlib
+
+      - name: Upload coverage report
+        run: |
+          mkdir -p coverage
+          pytest --cov=src --cov-report=xml:coverage/coverage.xml
+        continue-on-error: true
+
+      - name: Publish coverage summary
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage/coverage.xml
+
+      - name: Send coverage to Coveralls
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+        run: coveralls --xml coverage.xml
