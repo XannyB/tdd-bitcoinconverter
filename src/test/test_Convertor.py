@@ -1,17 +1,18 @@
 from src.main.Convertor import Convertor
 from urllib.error import URLError
-
+import pytest
 
 def test_get_exchange_rate_USD(mocker):
-    #arrange
+    #arrangemock_value
     mock_value = "123456.789"
     mock_data = {"USD": mock_value}
     mocker.patch.object(Convertor,"_fetch_rates", return_value=mock_data)
     convertor = Convertor()
+    expected = float(mock_value)
     # act
     actual = convertor.get_exchange_rate("USD")    
     #assert
-    assert actual == mock_value
+    assert actual == expected
 
 def test_get_exchange_rate_GBP(mocker):
     #arrange
@@ -19,10 +20,11 @@ def test_get_exchange_rate_GBP(mocker):
     mock_data = {"GBP": mock_value}
     mocker.patch.object(Convertor,"_fetch_rates", return_value=mock_data)
     convertor = Convertor()
+    expected = float(mock_value)
     # act
     actual = convertor.get_exchange_rate("GBP")    
     #assert
-    assert actual == mock_value
+    assert actual == expected
 
 def test_get_exchange_rate_EUR(mocker):
     #arrange
@@ -30,15 +32,25 @@ def test_get_exchange_rate_EUR(mocker):
     mock_data = {"EUR": mock_value}
     mocker.patch.object(Convertor,"_fetch_rates", return_value=mock_data)
     convertor = Convertor()
+    expected = float(mock_value)
     # act
     actual = convertor.get_exchange_rate("EUR")    
     #assert
-    assert actual == mock_value
+    assert actual == expected
+
+def test_get_exchange_IOError(mocker):
+    #arrange
+    mocker.patch("src.main.Convertor.urlopen", side_effect=IOError("Simulated Network/Disk Issue."))
+    convertor = Convertor()
+    expected = -1
+
+    actual = convertor.current_rates 
+
+    assert actual == expected
 
 def test_get_rates_URLError(mocker):
     #arrange
     mocker.patch("src.main.Convertor.urlopen", side_effect=URLError("URL Not Found!"))
-
     convertor = Convertor()
     expected = -1
 
@@ -55,9 +67,9 @@ def test_get_exchange_OSError(mocker):
         # act
         actual = convertor.get_exchange_rate("USD") 
     except OSError:
-        actual = "-1"
+        actual = -1
 
-    expected = "-1"
+    expected = -1
     #assert
     assert actual == expected
 
@@ -69,7 +81,7 @@ def test_convert_bitcoin_to_USD(mocker):
     convertor = Convertor()
     # act
     actual = convertor.convert_bitcoin("USD", 1) 
-    expected = mock_value
+    expected = float(mock_value)
     #assert
     assert actual == expected
 
@@ -80,7 +92,7 @@ def test_convert_two_bitcoin_to_USD(mocker):
     convertor = Convertor()
 
     actual = convertor.convert_bitcoin("USD", 2)    
-    expected = str(float(mock_value) * 2)
+    expected = float(mock_value) * 2
 
     assert actual == expected
 
@@ -88,10 +100,10 @@ def test_convert_bitcoin_to_GBP(mocker):
     mock_value = "222.22"
     mock_data = {"GBP": mock_value}
     mocker.patch.object(Convertor,"_fetch_rates", return_value=mock_data)
-    convertor = Convertor()
+    convertor = Convertor()    
+    expected = float(mock_value)
 
-    actual = convertor.convert_bitcoin("GBP", 1)    
-    expected = mock_value
+    actual = convertor.convert_bitcoin("GBP", 1)
     
     assert actual == expected
 
@@ -99,10 +111,10 @@ def test_convert_two_bitcoin_to_GBP(mocker):
     mock_value = "222.22"
     mock_data = {"GBP": mock_value}
     mocker.patch.object(Convertor,"_fetch_rates", return_value=mock_data)
-    convertor = Convertor()
+    convertor = Convertor()    
+    expected = float(mock_value) * 2
 
-    actual = convertor.convert_bitcoin("GBP", 2)    
-    expected = str(float(mock_value) * 2)
+    actual = convertor.convert_bitcoin("GBP", 2)
     
     assert actual == expected
 
@@ -110,10 +122,10 @@ def test_convert_bitcoin_to_EUR(mocker):
     mock_value = "333.33"
     mock_data = {"EUR": mock_value}
     mocker.patch.object(Convertor,"_fetch_rates", return_value=mock_data)
-    convertor = Convertor()
+    convertor = Convertor()    
+    expected = float(mock_value)
 
-    actual = convertor.convert_bitcoin("EUR", 1)    
-    expected = mock_value
+    actual = convertor.convert_bitcoin("EUR", 1)
     
     assert actual == expected
 
@@ -121,10 +133,10 @@ def test_convert_two_bitcoin_to_EUR(mocker):
     mock_value = "333.33"
     mock_data = {"EUR": mock_value}
     mocker.patch.object(Convertor,"_fetch_rates", return_value=mock_data)
-    convertor = Convertor()
+    convertor = Convertor()    
+    expected = float(mock_value) * 2
 
-    actual = convertor.convert_bitcoin("EUR", 2)    
-    expected = str(float(mock_value) * 2)
+    actual = convertor.convert_bitcoin("EUR", 2)
     
     assert actual == expected
 
@@ -132,9 +144,20 @@ def test_convert_0_bitcoin_to_USD(mocker):
     mock_value = "0.0"
     mock_data = {"USD": mock_value}
     mocker.patch.object(Convertor,"_fetch_rates", return_value=mock_data)
-    convertor = Convertor()
+    convertor = Convertor()    
+    expected = float(mock_value)
 
-    actual = convertor.convert_bitcoin("USD", 0)    
-    expected = mock_value
+    actual = convertor.convert_bitcoin("USD", 0)
     
     assert actual == expected
+
+def test_convert_negative_bitcoin_to_USD(mocker):
+    mock_data = {"USD": "-1.0"}
+    mocker.patch.object(Convertor,"_fetch_rates", return_value=mock_data)
+    convertor = Convertor()
+    expected = -1
+
+    actual = convertor.convert_bitcoin("USD", -1)    
+    
+    assert actual == expected
+

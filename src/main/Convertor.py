@@ -16,11 +16,12 @@ class Convertor:
 
     def get_exchange_rate(self, currency):
         if self.current_rates != -1:
-            return self.current_rates[currency]
+            return float(self.current_rates[currency])
         else:
             return -1
     
     def convert_bitcoin(self, currency_type, coins):
+        print("convert_bitcoin was called")
         currency_total = 0
         
         exchange_rate = float(self.get_exchange_rate(currency_type))
@@ -30,6 +31,5 @@ class Convertor:
         else:
             currency_total = -1
 
-        return str(currency_total)
+        return currency_total
     
-convertor = Convertor()
