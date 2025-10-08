@@ -1,4 +1,4 @@
-name: Run Pytest with Coverage and Coveralls
+name: Pytest with Coverage and Coveralls
 
 on: [push]
 

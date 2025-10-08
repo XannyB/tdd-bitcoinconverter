@@ -24,13 +24,12 @@ class Convertor:
         return float(self.current_rates[currency])
     
     def convert_bitcoin(self, currency_type, coins):
-        print("convert_bitcoin was called")
         currency_total = 0
-        
         exchange_rate = float(self.get_exchange_rate(currency_type))
 
-        if exchange_rate >= 0:
-            currency_total = exchange_rate * coins
+        if coins >= 0 and exchange_rate >= 0:
+            currency_total = round((exchange_rate * coins), 2)
+
         else:
             currency_total = -1
 

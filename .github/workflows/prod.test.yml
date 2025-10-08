@@ -1,17 +1,21 @@
-name: Run Pytest on Push
+name: Production Release
 
-on: [push]
+on:
+  push:
+    tags:
+      - 'v*'  # e.g. v1.0.0, v2.3.1
 
 jobs:
-  test:
+  release:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        python-version: [3.11.9]  # or whatever version you're using
+        python-version: [3.11.9]
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -21,7 +25,19 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-          pip install pytest
+          pip install build
 
-      - name: Run tests
-        run: pytest
+      - name: Set PYTHONPATH
+        run: echo "PYTHONPATH=$PWD/src" >> $GITHUB_ENV
+
+      - name: Build package
+        run: |
+          python -m build --sdist --wheel
+          ls -lh dist/
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: dist/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
