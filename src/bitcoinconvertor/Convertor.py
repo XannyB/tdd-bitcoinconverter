@@ -1,5 +1,4 @@
 from urllib.request import urlopen
-from urllib.error import HTTPError, URLError
 from enum import Enum
 
 import json

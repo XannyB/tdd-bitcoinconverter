@@ -1,4 +1,4 @@
-from Convertor import Convertor
+from src.bitcoinconvertor.Convertor import Convertor
 
 class InputHandler:
     def __init__(self):    
@@ -31,7 +31,7 @@ class InputHandler:
     def get_num_bitcoin(self):
         while True:
             bitcoins = self._set_num_bitcoin()
-            if bitcoins != -1:
+            if bitcoins != -1 and bitcoins >= 0:
                 return bitcoins
             print("Please enter a positive number.")
 
