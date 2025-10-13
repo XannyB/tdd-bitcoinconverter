@@ -30,11 +30,18 @@ jobs:
       - name: Set PYTHONPATH
         run: echo "PYTHONPATH=$PWD/src" >> $GITHUB_ENV
 
-      - name: Build package
-        working-directory: ${{ github.workspace }}
+      - name: Debug workspace
         run: |
-          python -m build --sdist --wheel
+          echo "Current directory: $PWD"
+          ls -lh
+          ls -lh ${{ github.workspace }}
+          cat ${{ github.workspace }}/pyproject.toml
+
+      - name: Build package
+        run: |
+          python -m build ${{ github.workspace }} --sdist --wheel
           ls -lh dist/
+
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
