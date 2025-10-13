@@ -30,3 +30,4 @@ def test_currency_input_fail(monkeypatch, mocker, capsys):
     actual = capsys.readouterr()
 
     assert actual.out == expected
+
