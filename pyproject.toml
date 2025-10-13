@@ -1,7 +1,13 @@
 [project]
-name = "tdd-bitcoinconverter"
+name = "bitcoinconvertor"
 version = "1.0.0"
+description = "Bitcoin conversion utility"
+readme = "README.md"
+requires-python = ">=3.11"
 
 [build-system]
 requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
