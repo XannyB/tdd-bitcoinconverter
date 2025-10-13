@@ -31,6 +31,7 @@ jobs:
         run: echo "PYTHONPATH=$PWD/src" >> $GITHUB_ENV
 
       - name: Build package
+        working-directory: ${{ github.workspace }}
         run: |
           python -m build --sdist --wheel
           ls -lh dist/
