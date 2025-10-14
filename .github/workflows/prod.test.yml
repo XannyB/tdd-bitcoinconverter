@@ -9,7 +9,7 @@ jobs:
   release:
     runs-on: ubuntu-latest
 
-    permissions:                    # ← ADD THIS
+    permissions:
       contents: write              # ← Needed to create releases
 
     steps:
