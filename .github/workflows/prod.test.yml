@@ -27,16 +27,6 @@ jobs:
           pip install -r requirements.txt
           pip install build
 
-      - name: Set PYTHONPATH
-        run: echo "PYTHONPATH=$PWD/src" >> $GITHUB_ENV
-
-      # - name: Debug workspace
-      #   run: |
-      #     echo "Current directory: $PWD"
-      #     ls -lh
-      #     ls -lh ${{ github.workspace }}
-      #     cat ${{ github.workspace }}/pyproject.toml
-
       - name: Build package
         run: |
           python -m build --sdist --wheel
