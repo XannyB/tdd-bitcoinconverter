@@ -1,4 +1,4 @@
-from src.bitcoinconvertor.InputHandler import InputHandler
+from bitcoinconverter.src.InputHandler import InputHandler
 import pytest
 
 def test__set_currency_gbp(monkeypatch):
