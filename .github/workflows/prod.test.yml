@@ -27,8 +27,8 @@ jobs:
           pip install -r requirements.txt
           pip install build
 
-      # - name: Set PYTHONPATH
-      #   run: echo "PYTHONPATH=$PWD/src" >> $GITHUB_ENV
+      - name: Set PYTHONPATH
+        run: echo "PYTHONPATH=$PWD/src" >> $GITHUB_ENV
 
       # - name: Debug workspace
       #   run: |
