@@ -11,7 +11,7 @@ jobs:
 
     strategy:
       matrix:
-        python-version: [3.11.9]
+        python-version: [3.11]
 
     steps:
       - name: Checkout code
@@ -27,19 +27,19 @@ jobs:
           pip install -r requirements.txt
           pip install build
 
-      - name: Set PYTHONPATH
-        run: echo "PYTHONPATH=$PWD/src" >> $GITHUB_ENV
+      # - name: Set PYTHONPATH
+      #   run: echo "PYTHONPATH=$PWD/src" >> $GITHUB_ENV
 
-      - name: Debug workspace
-        run: |
-          echo "Current directory: $PWD"
-          ls -lh
-          ls -lh ${{ github.workspace }}
-          cat ${{ github.workspace }}/pyproject.toml
+      # - name: Debug workspace
+      #   run: |
+      #     echo "Current directory: $PWD"
+      #     ls -lh
+      #     ls -lh ${{ github.workspace }}
+      #     cat ${{ github.workspace }}/pyproject.toml
 
       - name: Build package
         run: |
-          python -m build ${{ github.workspace }} --sdist --wheel
+          python -m build --sdist --wheel
           ls -lh dist/
 
 
