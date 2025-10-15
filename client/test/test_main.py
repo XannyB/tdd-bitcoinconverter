@@ -1,7 +1,7 @@
 import pytest
 from client.src.main import main
-from bitcoinconverter.src.InputHandler import InputHandler
-from bitcoinconverter.src.Convertor import Convertor
+from bitcoinconverter.InputHandler import InputHandler
+from bitcoinconverter.Convertor import Convertor
 
 def test_main(monkeypatch, mocker, capsys):
     mock_value = "100.0"
