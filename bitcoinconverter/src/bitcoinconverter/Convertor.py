@@ -6,7 +6,7 @@ import json
 class Convertor:
     def __init__(self):
         try:
-            self.current_rates = self._fetch_rates()           
+            self.current_rates = self._fetch_rates()
         except OSError:
             self.current_rates = -1
 
@@ -28,6 +28,3 @@ class Convertor:
             currency_total = -1
 
         return currency_total
-    
-
-Convertor()

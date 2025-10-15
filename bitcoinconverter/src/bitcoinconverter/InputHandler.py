@@ -7,8 +7,8 @@ class InputHandler:
     def _set_currency(self):
         currency = input("Please enter currency you would you like to see conversion for: ")
 
-        if currency in self.convertor.current_rates:
-            return currency
+        if currency.upper() in self.convertor.current_rates:
+            return currency.upper()
         else:
             return -1
 
