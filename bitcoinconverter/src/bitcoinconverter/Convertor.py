@@ -6,7 +6,7 @@ import json
 class Convertor:
     def __init__(self):
         try:
-            self.current_rates = self._fetch_rates()
+            self.current_rates = self._fetch_rates()           
         except OSError:
             self.current_rates = -1
 
@@ -14,11 +14,6 @@ class Convertor:
             url = urlopen("https://api.coinbase.com/v2/exchange-rates?currency=BTC")
             return json.load(url)["data"]["rates"]
         
-    class Currency(Enum):
-        USD = "USD"
-        GBP = "GBP"
-        EUR = "EUR"
-
     def get_exchange_rate(self, currency):
         return float(self.current_rates[currency])
     
@@ -33,3 +28,6 @@ class Convertor:
             currency_total = -1
 
         return currency_total
+    
+
+Convertor()

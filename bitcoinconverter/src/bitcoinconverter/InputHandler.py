@@ -7,10 +7,9 @@ class InputHandler:
     def _set_currency(self):
         currency = input("Please enter currency you would you like to see conversion for: ")
 
-        try:
-            self.convertor.Currency[currency.upper()]
-            return currency.upper()
-        except KeyError:
+        if currency in self.convertor.current_rates:
+            return currency
+        else:
             return -1
 
     def _set_num_bitcoin(self):
