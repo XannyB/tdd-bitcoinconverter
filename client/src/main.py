@@ -1,14 +1,15 @@
 from bitcoinconverter.InputHandler import InputHandler
 from bitcoinconverter.Convertor import Convertor
 
-
-def main():
+def main(test_mode=False):
     handler = InputHandler()
 
     while True:
         currency = get_currency_type_input(handler)
         bitcoin = get_bitcoin_input(handler)        
         print(get_conversion(currency, bitcoin))
+        if test_mode:
+            break
 
 def get_currency_type_input(handler):
     currency = handler.get_currency()

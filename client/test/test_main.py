@@ -10,7 +10,7 @@ def test_main(monkeypatch, mocker, capsys):
     monkeypatch.setattr(InputHandler, "get_num_bitcoin", lambda _: 1.0)
 
     mocker.patch.object(Convertor,"_fetch_rates", return_value=mock_data)
-    main()    
+    main(test_mode=True) 
 
     expected = "Your bitcoin value is 100.0 in GBP.\n"
     actual = capsys.readouterr()
@@ -23,7 +23,7 @@ def test_currency_input_fail(monkeypatch, mocker, capsys):
     monkeypatch.setattr(InputHandler, "get_currency", lambda _: "GBP")
     monkeypatch.setattr(InputHandler, "get_num_bitcoin", lambda _: 1.0)    
     mocker.patch.object(Convertor,"convert_bitcoin", return_value= -1)
-    main()    
+    main(test_mode=True)  
 
     expected = "An error has occurred. Please try again.\n"
     actual = capsys.readouterr()
