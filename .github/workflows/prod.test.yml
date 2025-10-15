@@ -33,10 +33,11 @@ jobs:
 
       - name: Build package
         run: python -m build --sdist --wheel
+        working-directory: bitcoinconverter
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
-          files: dist/*
+          files: bitcoinconverter/dist/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

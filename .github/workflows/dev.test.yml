@@ -24,11 +24,11 @@ jobs:
           pip install -r requirements.txt
           pip install pytest pytest-cov coveralls
 
-      # - name: Set PYTHONPATH
-      #   run: echo "PYTHONPATH=$PWD/src" >> $GITHUB_ENV
+      - name: Set PYTHONPATH
+        run: echo "PYTHONPATH=$PWD/bitcoinconverter/src" >> $GITHUB_ENV
 
       - name: Run tests with coverage
-        run: pytest --cov=src --cov-report=xml --cov-report=term-missing --import-mode=importlib
+        run: pytest --cov=bitcoinconverter --cov-report=xml --cov-report=term-missing --import-mode=importlib
 
       - name: Send coverage to Coveralls
         env:

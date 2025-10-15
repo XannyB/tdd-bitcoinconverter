@@ -3,14 +3,12 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "bitcoinconvertor"
+name = "bitcoinconverter"
 version = "1.0.0"
 description = "Bitcoin conversion utility"
+authors = [{ name = "Simon" }]
 readme = "README.md"
 requires-python = ">=3.11"
 
 [tool.setuptools]
-package-dir = {"" = "bitcoinconverter/src"}
-
-[tool.setuptools.packages.find]
-where = ["bitcoinconverter/src"]
+packages = { find = { where = ["src"] } }

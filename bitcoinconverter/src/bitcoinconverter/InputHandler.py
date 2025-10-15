@@ -1,4 +1,4 @@
-from bitcoinconverter.src.Convertor import Convertor
+from bitcoinconverter.Convertor import Convertor
 
 class InputHandler:
     def __init__(self):    

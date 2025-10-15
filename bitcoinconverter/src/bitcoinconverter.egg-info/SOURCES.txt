@@ -1,0 +1,10 @@
+pyproject.toml
+src/bitcoinconverter/Convertor.py
+src/bitcoinconverter/InputHandler.py
+src/bitcoinconverter/__init__.py
+src/bitcoinconverter.egg-info/PKG-INFO
+src/bitcoinconverter.egg-info/SOURCES.txt
+src/bitcoinconverter.egg-info/dependency_links.txt
+src/bitcoinconverter.egg-info/top_level.txt
+test/test_Convertor.py
+test/test_InputHandler.py

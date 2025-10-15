@@ -1,4 +1,4 @@
-from bitcoinconverter.src.Convertor import Convertor
+from bitcoinconverter.Convertor import Convertor
 from urllib.error import URLError
 import pytest
 
@@ -40,7 +40,7 @@ def test_get_exchange_rate_EUR(mocker):
 
 def test_get_exchange_IOError(mocker):
     #arrange
-    mocker.patch("bitcoinconverter.src.Convertor.urlopen", side_effect=IOError("Simulated Network/Disk Issue."))
+    mocker.patch("bitcoinconverter.Convertor.urlopen", side_effect=IOError("Simulated Network/Disk Issue."))
     convertor = Convertor()
     expected = -1
 
@@ -50,7 +50,7 @@ def test_get_exchange_IOError(mocker):
 
 def test_get_rates_URLError(mocker):
     #arrange
-    mocker.patch("bitcoinconverter.src.Convertor.urlopen", side_effect=URLError("URL Not Found!"))
+    mocker.patch("bitcoinconverter.Convertor.urlopen", side_effect=URLError("URL Not Found!"))
     convertor = Convertor()
     expected = -1
 
